@@ -1,21 +1,19 @@
 package factory.factorymethod;
 
-// 一个具体工厂类
-// 能创建 Circle 和 Square
+// 另一个具体工厂类（用继承扩展现有工厂类）
+// 能创建 Circle, Square 和 Rectangle
 
-public class ShapeFactoryV1 implements ShapeFactory {
+public class ShapeFactoryV3 extends ShapeFactoryV1 implements ShapeFactory {
 
 	///////////////////////////////////////////////////////
 	// 创建各种对象的方法，用参数指明要创建的具体对象
 	@Override
 	public Shape createShape(String type) {
-		System.out.println("Made in factory 1:");
-		if (type.equals("Circle")) {
-			return new Circle();
-		} else if (type.equals("Square")) {
-			return new Square();
+		System.out.println("Made in factory 3:");
+		if (type.equals("Rectangle")) {
+			return new Rectangle();
 		} else {
-			return null;
+			return super.createShape(type); // 调用超类方法
 		}
 	}
 
@@ -24,6 +22,7 @@ public class ShapeFactoryV1 implements ShapeFactory {
 	public static void main(String[] args) {
 		String[] types = { "Circle", "Square", "Rectangle"};
 		drawShapes(types, new ShapeFactoryV1());
+		drawShapes(types, new ShapeFactoryV3());
 	}
 
 	// 该方法不依赖于具体的工厂类，可以对具体工厂类的变化保持封闭
